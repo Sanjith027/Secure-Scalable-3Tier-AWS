@@ -30,8 +30,8 @@ module "compute" {
   private_subnets        = module.networking.private_subnets
   bastion_instance_count = 1
   instance_type          = local.instance_type
-  key_name               = "Three-Tier-Terraform"
-  ssh_key                = "Three-Tier-Terraform"
+  key_name               = "nextwork"
+  ssh_key                = "nextwork"
   lb_tg_name             = module.loadbalancing.lb_tg_name
   lb_tg                  = module.loadbalancing.lb_tg
 }
@@ -39,11 +39,11 @@ module "compute" {
 module "database" {
   source               = "../modules/database"
   db_storage           = 10
-  db_engine_version    = "8.0"
-  db_instance_class    = "db.t2.micro"
+  db_engine_version    = "5.7.44"
+  db_instance_class    = "db.t3.micro"
   db_name              = var.db_name
   dbuser               = var.dbuser
-  dbpassword           = var.dbpassword
+  dbpassword           = var.db_password  
   db_identifier        = "three-tier-db"
   skip_db_snapshot     = true
   rds_sg               = module.networking.rds_sg
